@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Z4lG0 - Fotógrafo en Xalapa</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #1f1f1f;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        h2 {
+            color: #ccc;
+            font-weight: 400;
+        }
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        .gallery img {
+            width: 100%;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+        footer {
+            background: #1f1f1f;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+        .social-links a {
+            color: #00bcd4;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .admin-section {
+            background-color: #222;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            display: none;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            background-color: #00bcd4;
+            color: #fff;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0097a7;
+        }
+        #shareButton {
+            margin-top: 15px;
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Z4lG0</h1>
+    <h2>Fotógrafo Profesional - Xalapa, Veracruz</h2>
+</header>
+
+<section>
+    <p>Hola, soy <strong>Diego Callejas</strong>, fotógrafo profesional de la ciudad de Xalapa. Capturo momentos únicos con una visión artística moderna.</p>
+    <button id="shareButton">🔗 Compartir este sitio</button>
+</section>
+
+<section class="gallery" id="gallery">
+    <img src="https://picsum.photos/400/300?random=1" alt="Foto 1">
+    <img src="https://picsum.photos/400/300?random=2" alt="Foto 2">
+    <img src="https://picsum.photos/400/300?random=3" alt="Foto 3">
+</section>
+
+<section class="admin-section" id="adminPanel">
+    <h3>Panel de administrador</h3>
+    <input type="file" id="fileInput" accept="image/*">
+    <button onclick="uploadImage()">Subir foto</button>
+</section>
+
+<footer>
+    <p>📸 Contacto: <a href="mailto:diegocallejas633@gmail.com">diegocallejas633@gmail.com</a></p>
+    <div class="social-links">
+        <a href="https://instagram.com/zalguito_2" target="_blank">Instagram</a> |
+        <a href="https://tiktok.com/@zalguito_2" target="_blank">TikTok</a>
+    </div>
+</footer>
+
+<script>
+const password = "Z4lG0";
+if (prompt("Introduce la contraseña para acceder como administrador:") === password) {
+    document.getElementById("adminPanel").style.display = "block";
+}
+
+function uploadImage() {
+    const input = document.getElementById('fileInput');
+    const gallery = document.getElementById('gallery');
+    if (input.files.length > 0) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            gallery.appendChild(img);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+document.getElementById("shareButton").addEventListener("click", async () => {
+    const shareData = {
+        title: "Z4lG0 - Fotógrafo Xalapa",
+        text: "Mira el portafolio del fotógrafo Z4lG0 de Xalapa 📸",
+        url: window.location.href
+    };
+    try {
+        await navigator.share(shareData);
+    } catch (err) {
+        alert("Copia el enlace manualmente: " + window.location.href);
+    }
+});
+</script>
+
+</body>
+</html>
